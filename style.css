@@ -235,6 +235,10 @@ h1 {
     margin: 0 auto;
 }
 
+[data-errorImg] img{
+    border-radius: 10px;
+}
+
 [data-errorImg].active{
     display: flex;
 }
