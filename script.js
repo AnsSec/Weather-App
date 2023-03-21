@@ -7,6 +7,8 @@ const searchForm=document.querySelector("[data-searchForm]")
 const loadingScreen=document.querySelector("[data-loadingContainer]")
 const userInfoContainer=document.querySelector("[data-userInfoContainer]")
 
+const imgError=document.querySelector("[data-errorImg]")
+
 
 let oldTab=userTab
 const API_key="d1845658f92b31c64bd94f06f7188c9c";
@@ -14,6 +16,7 @@ oldTab.classList.add("current-Tab");
 getfromSessionStorage();
 
 function switchTab(newTab){
+    imgError.classList.remove("active")
     if(newTab != oldTab){
         oldTab.classList.remove("current-Tab");
         oldTab=newTab;
@@ -69,8 +72,9 @@ async function fetchUserWeatherInfo(coordinates){
         userInfoContainer.classList.add("active");
         renderWeatherInfo(data);
     } catch (err) {
-        loadingScreen.classList.remove("active");
-        
+        loadingScreen.classList.remove("active")
+        imgError.classList.add('active')
+
     }
 }
 
@@ -119,6 +123,7 @@ grantAccessBtn.addEventListener("click",getLocation);
 
 // iss line ko firse dekhna hai 
 
+
 let searchInput=document.querySelector("[data-searchInput]") 
 searchForm.addEventListener("submit",(e)=>{
     e.preventDefault();
@@ -127,22 +132,27 @@ searchForm.addEventListener("submit",(e)=>{
 
     fetchsearchWeatherInfo(searchInput.value);
 })
-const imgError=document.querySelector("[data-errorImg]")
+
 async function fetchsearchWeatherInfo(city){
     loadingScreen.classList.add("active")
     userInfoContainer.classList.remove("active")
     grantLocationAccess.classList.remove("active")
-
+    imgError.classList.remove('active')
     try {
         const response=await fetch
                  (`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_key}&units=metric`);
         const data =await response.json();
+        if (!data.sys) {
+            throw data;
+        }
         loadingScreen.classList.remove("active")
         userInfoContainer.classList.add("active")
         renderWeatherInfo(data);
+        imgError.classList.remove('active')
 
     } catch (err) {
-        imgError.classList.add("img404")
-
+        loadingScreen.classList.remove("active")
+        userInfoContainer.classList.remove("active")
+        imgError.classList.add('active')
     }
 }
