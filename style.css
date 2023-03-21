@@ -240,3 +240,15 @@ h1 {
 [data-errorImg].active{
     display: flex;
 }
+
+@media screen and (max-width:430px) {
+    [data-parametersContainer]{
+        flex-direction: column;
+    }
+    [data-parameters]{
+        width: 100%;
+    }
+    #wrapper{
+        overflow-y: scroll;
+    }
+}
