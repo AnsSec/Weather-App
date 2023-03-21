@@ -232,6 +232,7 @@ h1 {
 
 [data-errorImg]{
     display: none;
+    margin: 0 auto;
 }
 
 [data-errorImg].active{
