@@ -230,13 +230,10 @@ h1 {
     margin-bottom:1px;
 }
 
-[data-errorImg] {
-    margin: 0 auto;
+[data-errorImg]{
     display: none;
-    justify-content: center;
-    align-items: center;
-
 }
-[data-errorImg] .active{
+
+[data-errorImg].active{
     display: flex;
 }
